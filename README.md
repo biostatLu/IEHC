@@ -23,7 +23,7 @@ Tianxi Cai, Giulia Tonini and Xihong Lin. Kernel machine approach to testing the
 
 Xinyi Lin, Tianxi Cai, Michael C. Wu, Qian Zhou, Geoffrey Liu, David C. Christiani and Xihong Lin. Kernel machine SNP-set analysis for censored survival outcomes in genome-wide association studies. Genetic Epidemiology, 2011, 35(7), 620-631.
 
-Ping Zeng, Yang Zhao, Jin Liu, Liya Liu, Liwei Zhang, Ting Wang, Shuiping Huang and Feng Chen. Likelihood Ratio Tests in Rare Variant Detection for Continuous Phenotypes. Annals of Human Genetics, 2014, 78(5): 320-332. DOI: 10.1111/ahg.12071
+Ping Zeng, Yang Zhao, Jin Liu, Liya Liu, Liwei Zhang, Ting Wang, Shuiping Huang and Feng Chen. Likelihood Ratio Tests in Rare Variant Detection for Continuous Phenotypes. Annals of Human Genetics, 2014, 78(5): 320-332. DOI:10.1111/ahg.12071
 
 Sun, J., Zheng, Y. and Hsu, L. (2013) A unified mixed-effects model for rare-variant association in sequencing studies, Genet Epidemiol, 37, 334-344.
 
