@@ -17,14 +17,14 @@ This is a joint test including both fixed effect and random effects: the first c
 In order to aggregate the two independent test statistics, we propose three p-value combination approaches (i.e. IEHC-Fisher, IEHC-adapt and IEHC-optim).
 
 # References
-DR Cox. Regression Models and Life-Tables, Journal of the royal statistical society. Series B (Methodological), 1972, 34(2): 187-220. DOI:/abs/10.1111/j.2517-6161.1972.tb00899.x
+DR Cox. Regression Models and Life-Tables, Journal of the royal statistical society. Series B (Methodological), 1972, 34(2): 187-220. 
 
 Tianxi Cai, Giulia Tonini and Xihong Lin. Kernel machine approach to testing the significance of multiple genetic markers for risk prediction. Biometrics, 2011, 67(3): 975-986.
 
 Xinyi Lin, Tianxi Cai, Michael C. Wu, Qian Zhou, Geoffrey Liu, David C. Christiani and Xihong Lin. Kernel machine SNP-set analysis for censored survival outcomes in genome-wide association studies. Genetic Epidemiology, 2011, 35(7), 620-631.
 
-Ping Zeng, Yang Zhao, Jin Liu, Liya Liu, Liwei Zhang, Ting Wang, Shuiping Huang and Feng Chen. Likelihood Ratio Tests in Rare Variant Detection for Continuous Phenotypes. Annals of Human Genetics, 2014, 78(5): 320-332. DOI:10.1111/ahg.12071
+Ping Zeng, Yang Zhao, Jin Liu, Liya Liu, Liwei Zhang, Ting Wang, Shuiping Huang and Feng Chen. Likelihood Ratio Tests in Rare Variant Detection for Continuous Phenotypes. Annals of Human Genetics, 2014, 78(5): 320-332. DOI: 10.1111/ahg.12071
 
-Sun, J., Zheng, Y. and Hsu, L. (2013) A unified mixed-effects model for rare-variant association in sequencing studies, Genet Epidemiol, 37, 334-344.
+Jianping Sun, Yingye Zheng, Li Hsu. A unified mixed-effects model for rare-variant association in sequencing studies. Genetic Epidemiology, 2013, 37(4), 334-344.
 
-Su, Y.R., et al. (2018) A Mixed-Effects Model for Powerful Association Tests in Integrative Functional Genomics, Am. J. Hum. Genet., 102, 904-919.
+Yu-Ru Su, Chongzhi Di, Stephanie Bien, Licai Huang, Xinyuan Dong, Goncalo Abecasis, Sonja Berndt, Stephane Bezieau, Hermann Brenner, Bette Caan, Graham Casey, Jenny Chang-Claude, Stephen Chanock, Sai Chen, Charles Connolly, Keith Curtis, Jane Figueiredo, Manish Gala, Steven Gallinger, Tabitha Harrison, Michael Hoffmeister, John Hopper, Jeroen R. Huyghe, Mark Jenkins, Amit Joshi, Loic Le Marchand, Polly Newcomb, Deborah Nickerson, John Potter, Robert Schoen, Martha Slattery, Emily White, Brent Zanke, Ulrike Peters and Li Hsu. A Mixed-Effects Model for Powerful Association Tests in Integrative Functional Genomics. The American Journal of Human Genetics, 2018, 102(5), 904-919.
