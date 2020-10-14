@@ -10,7 +10,7 @@ IEHC = function (
   
   combinations_return=TRUE,
   
-  combination_preference = "All", # other options: "optim", "adapt", "Fisher"
+  combination_preference = "All", # other options: "optim", "adapt", "Fisher", "Burden", "KM", "ACAT"
   
   acc = 5e-10,
   
