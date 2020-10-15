@@ -17,7 +17,7 @@ This is a joint test including both fixed effect and random effects: the first c
 In order to aggregate the two independent test statistics, we propose three p-value combination approaches (i.e. IEHC-Fisher, IEHC-adapt and IEHC-optim).
 
 # References
-DR Cox. Regression Models and Life-Tables, Journal of the royal statistical society. Series B (Methodological), 1972, 34(2): 187-220. [DOI: 10.1111/j.1467-9868.2004.00438.x](www.baidu.com)
+DR Cox. Regression Models and Life-Tables, Journal of the royal statistical society. Series B (Methodological), 1972, 34(2): 187-220. [DOI: 10.1111/j.2517-6161.1972.tb00899.x](https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1972.tb00899.x)
 
 Tianxi Cai, Giulia Tonini and Xihong Lin. Kernel machine approach to testing the significance of multiple genetic markers for risk prediction. Biometrics, 2011, 67(3): 975-986.
 
