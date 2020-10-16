@@ -47,31 +47,19 @@ fit = IEHC (data = y, X, G, M, combination_preference = "All")
 
 $pvalue
 
-  pvalue.Burden
-
-  0.2050184 
+  pvalue.Burden       0.2050184 
   
 
-  pvalue.KM
-
-  0.6308000
+  pvalue.KM           0.6308000
   
 
-  pvalue.IEHC_optim
-
-  0.3715790
+  pvalue.IEHC_optim   0.3715790
   
 
-  pvalue.IEHC_adapt
-
-  0.4010408
+  pvalue.IEHC_adapt   0.4010408
 
 
-  pvalue.IEHC_Fisher
-
-  0.4169198
+  pvalue.IEHC_Fisher  0.4169198
 
 
-  pvalue.ACAT
-
-  0.3837810
+  pvalue.ACAT         0.3837810
