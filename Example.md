@@ -1,6 +1,6 @@
 # Example of IEHC
 # Input data
-IEHC requires data (survival time and status, given in data.fam), X (covariates, X should be a n by p matrix), G (the weighted burden score, G should be a n by 1 matrix) and M (genotypes). For the input data, no missing data is allowed. So, missing data should be removed before data analysis.
+IEHC requires data (survival time and status, given in data.txt), X (covariates, X should be a n by p matrix), G (the weighted burden score, G should be a n by 1 matrix) and M (genotypes). For the input data, no missing data is allowed. So, missing data should be removed before data analysis.
 # The function of IEHC
 IEHC = function (
 
