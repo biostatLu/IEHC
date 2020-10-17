@@ -47,7 +47,7 @@ fit = IEHC (data = y, X, G, M, combination_preference = "All")
 
 $pvalue
 
-  pvalue.Burden       0.2050184 
+  pvalue.Burden      <p align="center">0.2050184</p> 
   
 
   pvalue.KM           0.6308000
