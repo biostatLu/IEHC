@@ -3,9 +3,9 @@
 Integrative eQTL hierarchical Cox (IEHC) is a R procedure for examining the association of a set of genetic variants based on genes under the framework of mixed models. Very similar to the popular MiST method which conducts the burden and the variance components test to binary or continuous outcome. IEHC uses Integrative eQTL hierarchical Cox model to test for the association by testing both the burden and the variance components according to the survival risk outcome. 
 
 Specifically, let y be a n by 1 vector of survival outcome on n individuals, X is a n by p matrix for covariates, G is a n by S matrix for genotypes of SNPs for a genetic region (i.e. gene), θ quantifies the association between the survival risk and the weighted burden score Gβ which explained by eQTL information, b quantifies the association between the survival risk and genotypes G which not explained by eQTL information and c a p-vector of fixed effect sizes for clinical covariates. We relate y, Gβ, X and G by a Cox mixed model:
-
+<p align="center">
 y = (Gβ) × θ + Gb + Xc, b ~ N(0, τ)
-
+</p>
 Above, τ is the genetic variance which not explained eQTL information.
 
 IEHC examines the association of G and Gβ with y (while controlling for X) by testing for:
