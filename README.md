@@ -16,7 +16,7 @@ This is a joint test including both fixed effect and random effects: the first c
 
 In order to aggregate the two independent test statistics, we propose three p-value combination approaches (i.e. IEHC-Fisher, IEHC-adapt and IEHC-optim).
 # Example
-The example of IEHC is shown in [Example.md]()
+The example of IEHC is shown in [Example.md](https://github.com/biostatLu/IEHC/blob/main/Example.md)
 
 # References
 DR Cox. Regression Models and Life-Tables, Journal of the royal statistical society. Series B (Methodological), 1972, 34(2): 187-220. [DOI: 10.1111/j.2517-6161.1972.tb00899.x](https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1972.tb00899.x)
