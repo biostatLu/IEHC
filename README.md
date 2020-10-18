@@ -15,6 +15,8 @@ H0: θ = 0 and b = 0 <==> H0: θ = 0 and τ = 0
 This is a joint test including both fixed effect and random effects: the first component of H0 examines the influence of genetic variants on the survival risk explained by eQTLs; while the second component examines the impact of genetic variants beyond the effects of eQTLs. Briefly, we derive the test statistic for θ under H0: θ = 0 and τ = 0 as usual, while we derive the score statistic for τ under τ = 0 but without the constraint of θ = 0. By doing this, we ensure that these two statistics are independent. This strategy substantially eases the development of test statistics for the joint test. In conclusion, under this framework two asymptotically independent statistics can be derived: one for a scale (i.e. θ) in the general Cox model and the other for the variance component (i.e. τ) in the KM Cox model.
 
 In order to aggregate the two independent test statistics, we propose three p-value combination approaches (i.e. IEHC-Fisher, IEHC-adapt and IEHC-optim).
+# Example
+The example of IEHC is shown in 
 
 # References
 DR Cox. Regression Models and Life-Tables, Journal of the royal statistical society. Series B (Methodological), 1972, 34(2): 187-220. [DOI: 10.1111/j.2517-6161.1972.tb00899.x](https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1972.tb00899.x)
