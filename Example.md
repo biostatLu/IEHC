@@ -19,13 +19,6 @@ IEHC = function (
   max_core = 4
 ){
 # The p values of Burden, KM, IEHC-Fisher, IEHC-adapt, IEHC-optim and ACAT
-library(survival)
-
-source("coxKM.R")
-
-source("ACAT_function.R")
-
-source("numerical_approximation.R")
 
 source("IEHC.R")
 
@@ -47,19 +40,19 @@ fit = IEHC (data = y, X, G, M, combination_preference = "All")
 
 $pvalue
 
-  pvalue.Burden      0.2050184 
+  pvalue.Burden      3.202048e-06
   
 
-  pvalue.KM           0.6308000
+  pvalue.KM           1.066000e-01
   
 
-  pvalue.IEHC_optim   0.3715790
+  pvalue.IEHC_optim   1.060116e-05
   
 
-  pvalue.IEHC_adapt   0.4010408
+  pvalue.IEHC_adapt   6.461405e-06
 
 
-  pvalue.IEHC_Fisher  0.4169198
+  pvalue.IEHC_Fisher  1.003343e-05
 
 
-  pvalue.ACAT         0.3837810
+  pvalue.ACAT         7.563492e-06
