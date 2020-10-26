@@ -21,6 +21,7 @@ IEHC = function (
 ){
 ```
 # The p values of Burden, KM, IEHC-Fisher, IEHC-adapt, IEHC-optim and ACAT
+```ruby
 
 source("IEHC.R")
 
@@ -58,3 +59,4 @@ $pvalue
 
 
   pvalue.ACAT         7.563492e-06
+  ```
