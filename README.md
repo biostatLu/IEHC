@@ -30,3 +30,7 @@ Ping Zeng, Yang Zhao, Jin Liu, Liya Liu, Liwei Zhang, Ting Wang, Shuiping Huang 
 Jianping Sun, Yingye Zheng, Li Hsu. A unified mixed-effects model for rare-variant association in sequencing studies. Genetic Epidemiology, 2013, 37(4), 334-344. [DOI: 10.1002/gepi.21717](https://onlinelibrary.wiley.com/doi/abs/10.1002/gepi.21717)
 
 Yu-Ru Su, Chongzhi Di, Stephanie Bien, Licai Huang, Xinyuan Dong, Goncalo Abecasis, Sonja Berndt, Stephane Bezieau, Hermann Brenner, Bette Caan, Graham Casey, Jenny Chang-Claude, Stephen Chanock, Sai Chen, Charles Connolly, Keith Curtis, Jane Figueiredo, Manish Gala, Steven Gallinger, Tabitha Harrison, Michael Hoffmeister, John Hopper, Jeroen R. Huyghe, Mark Jenkins, Amit Joshi, Loic Le Marchand, Polly Newcomb, Deborah Nickerson, John Potter, Robert Schoen, Martha Slattery, Emily White, Brent Zanke, Ulrike Peters and Li Hsu. A Mixed-Effects Model for Powerful Association Tests in Integrative Functional Genomics. The American Journal of Human Genetics, 2018, 102(5), 904-919. [DOI: 10.1016/j.ajhg.2018.03.019](https://www.sciencedirect.com/science/article/pii/S0002929718301083)
+
+# Cite
+Haojie Lu<sup>$</sup>, Yongyue Wei<sup>$</sup>, Zhou Jiang, Jinhui Zhang, Ting Wang, Shuiping Huang<sup>#</sup> and Ping Zeng<sup>#</sup> (2020). Integrative eQTL-weighted hierarchical Cox models for SNP-set based survival association study.
+
