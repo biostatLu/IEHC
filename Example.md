@@ -1,11 +1,11 @@
 # Example of IEHC
 # Input data
-IEHC requires data (survival time and status, given in data.txt), X (covariates, X should be a n by p matrix), G (the weighted burden score, G should be a n by 1 matrix) and M (genotypes). For the input data, no missing data is allowed. So, missing data should be removed before data analysis.
+IEHC requires data (survival time and status, given in data.txt), X (covariates, X should be a n by p matrix), G (the weighted burden score, G should be a n by 1 matrix) and M (genotype, M should be a n by R matrix). For the input data, no missing data is allowed. So, missing data should be removed before data analysis.
 # The function of IEHC
 ```ruby
 IEHC = function (
 
-  data, X, G, M,
+  data, X, G, M,   #data includes two columns: survival time and status; X should be a n by p matrix of clinical covariates; G is the weighted burden score and should be a n by 1 matrix; M is genotype which are coded as 0, 1, or 2 and should be  a n by R matrix.
   
   chisq_app = "3M",
   
