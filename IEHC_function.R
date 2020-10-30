@@ -980,7 +980,7 @@ Impute_coxSKAT <-function(Z, impute.method){
   EigenvalueD.r=rep(1,times=ncol(M))
 
 
- pvalue = c(pvalue.Burden=NA,pvalue.KM=NA,pvalue.IEHC_optim=NA,pvalue.IEHC_adapt=NA,pvalue.IEHC_Fisher=NA,pvalue.ACAT=NA)
+  pvalue = c(pvalue.Burden=NA,pvalue.KM=NA,pvalue.IEHC_optim=NA,pvalue.IEHC_adapt=NA,pvalue.IEHC_Fisher=NA,pvalue.ACAT=NA)
 
   
   y_surv = Surv(data$time,data$status)
@@ -995,99 +995,88 @@ Impute_coxSKAT <-function(Z, impute.method){
   Q.f=qchisq(pvalue.Burden, 1,  lower.tail = FALSE)
   Q.r=qchisq(pvalue.chisq, df,  lower.tail = FALSE)
 
-      if(combinations_return & (("All" %in% combination_preference) | ("optim" %in% combination_preference))){
-        # optim method - Calculate the optimal weight for linear combinations of Q.f and Q.r by minimizing the pvalues
-        p_rho = function(rho,df_f,lambda_r,u_f,u_r,acc=5e-10){
-          pvalue = CompQuadForm::davies(q=rho*u_f+(1-rho)*u_r,
-                          lambda=c(rho*rep(1,df_f),(1-rho)*lambda_r),acc=acc,lim=1/acc)$Qq
-          # Note on 2017/2/6: previous version doesn't include acc and lim input here and it causes the returned pvalue >1 in some simulation runs. Caused error in the following calculation of quantiles based on returned pvalues. acc and lim are added to control this.
-          if(pvalue<=acc) pvalue = pvalue.liu(Q=rho*u_f+(1-rho)*u_r,weight=c(rho*rep(1,df_f),(1-rho)*lambda_r),method=chisq_app)$pvalue
+  if(combinations_return & (("All" %in% combination_preference) | ("optim" %in% combination_preference))){
+  # optim method - Calculate the optimal weight for linear combinations of Q.f and Q.r by minimizing the pvalues
+  p_rho = function(rho,df_f,lambda_r,u_f,u_r,acc=5e-10){
+                    pvalue = CompQuadForm::davies(q=rho*u_f+(1-rho)*u_r,
+                    lambda=c(rho*rep(1,df_f),(1-rho)*lambda_r),acc=acc,lim=1/acc)$Qq
+  # Note: Previous version doesn't include acc and lim input here and it causes the returned pvalue >1 in some simulation runs. Caused error in the following calculation of quantiles based on returned pvalues. acc and lim are added to control this.
+  if(pvalue<=acc) pvalue = pvalue.liu(Q=rho*u_f+(1-rho)*u_r,weight=c(rho*rep(1,df_f),(1-rho)*lambda_r),method=chisq_app)$pvalue
           return(pvalue)
-        }
-        rho_min_pvalue_inside01 = optimize(p_rho,interval=c(0,1),maximum=FALSE,df_f=1,lambda_r=EigenvalueD.r,u_f=Q.f,u_r=Q.r,acc=acc)$minimum
-        min_pvalue_inside01 = optimize(p_rho,interval=c(0,1),maximum=FALSE,df_f=1,lambda_r=EigenvalueD.r,u_f=Q.f,u_r=Q.r,acc=acc)$objective
-        ### Note: optimize function does NOT include the comparison at the endpoints of the interval. Add comparison with p_values at 0 and 1 manually below
-        if(min_pvalue_inside01>pvalue.chisq | min_pvalue_inside01>pvalue.Burden){
+  }
+  rho_min_pvalue_inside01 = optimize(p_rho,interval=c(0,1),maximum=FALSE,df_f=1,lambda_r=EigenvalueD.r,u_f=Q.f,u_r=Q.r,acc=acc)$minimum
+  min_pvalue_inside01 = optimize(p_rho,interval=c(0,1),maximum=FALSE,df_f=1,lambda_r=EigenvalueD.r,u_f=Q.f,u_r=Q.r,acc=acc)$objective
+  ### Note: optimize function does NOT include the comparison at the endpoints of the interval. Add comparison with p_values at 0 and 1 manually below
+  if(min_pvalue_inside01>pvalue.chisq | min_pvalue_inside01>pvalue.Burden){
           rho_min_pvalue = ifelse(pvalue.chisq<pvalue.Burden,0,1)
           min_pvalue = ifelse(pvalue.chisq<pvalue.Burden,pvalue.chisq,pvalue.Burden)
-        }
-        else{
+  }
+  else{
           rho_min_pvalue = rho_min_pvalue_inside01
           min_pvalue = min_pvalue_inside01
-        }
+  }
 
-        Q.Optim = Q.f*rho_min_pvalue + Q.r*(1-rho_min_pvalue)
-
-  
-          acc_supp = max(min(min_pvalue,0.01)*0.1,acc)
-          lim_supp = as.integer(1/acc_supp)
+  Q.Optim = Q.f*rho_min_pvalue + Q.r*(1-rho_min_pvalue)
+  acc_supp = max(min(min_pvalue,0.01)*0.1,acc)
+  lim_supp = as.integer(1/acc_supp)
  
-
-        if(-log10(min_pvalue)>accurate_app_threshold){
+  if(-log10(min_pvalue)>accurate_app_threshold){
           quan_grid = quan_rho_calculator(grid=seq(0,1,by=0.05),df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc_supp,lim=lim_supp,max_core=max_core)
           pvalue.IEHC_optim = pvalue_minimizePValue_davies(u_f=Q.f,u_r=Q.r,df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc,ChisqApp=chisq_app,max_core=max_core)
-        }
-        else pvalue.IEHC_optim = pvalue_minimizePValue_liu(u_f=Q.f,u_r=Q.r,df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc,ChisqApp=chisq_app)
-        pvalue["pvalue.IEHC_optim"] = pvalue.IEHC_optim
-        #stat["stat.oMiST"] = Q.Optim
-        #rho["rho.oMiST.f"] = rho_min_pvalue
-        #rho["rho.oMiST.r"] = 1-rho_min_pvalue
-      }
+          }
+  else pvalue.IEHC_optim = pvalue_minimizePValue_liu(u_f=Q.f,u_r=Q.r,df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc,ChisqApp=chisq_app)
+          pvalue["pvalue.IEHC_optim"] = pvalue.IEHC_optim
+  }
 
-      if(combinations_return & (("All" %in% combination_preference) | ("adapt" %in% combination_preference))){
-        # Adaptive weighted combination
-        Z.f = -2*log(pvalue.Burden)
-        if(is.null(log(pvalue.chisq))) {Z.r = -2*log(1e-16)}
-        else {Z.r = -2*log(pvalue.chisq)}
-        esti.weight.f = Z.f/sqrt(Z.f^2+Z.r^2)
-        esti.weight.r = Z.r/sqrt(Z.f^2+Z.r^2)
-        Q.Adapt = sqrt(Z.f^2+Z.r^2) # [1,] is added to avoid operation problems. It guarantees it's a value.
-        integrand = function(y){
-          pchisq(sqrt(Q.Adapt^2-y^2),df=2,lower.tail=FALSE)*dchisq(y,df=2)
-        }
-        pvalue.IEHC_adapt = pchisq(Q.Adapt,df=2,lower.tail=FALSE)+integrate(integrand,lower=0,upper=Q.Adapt)$value
-        pvalue["pvalue.IEHC_adapt"] = pvalue.IEHC_adapt
-        #stat["stat.aMiST"] = Q.Adapt
-        #rho["rho.aMiST.f"] = esti.weight.f
-        #rho["rho.aMiST.r"] = esti.weight.r
-      }
+  if(combinations_return & (("All" %in% combination_preference) | ("adapt" %in% combination_preference))){
+          # Adaptive weighted combination
+          Z.f = -2*log(pvalue.Burden)
+          if(is.null(log(pvalue.chisq))) {Z.r = -2*log(1e-16)}
+          else {Z.r = -2*log(pvalue.chisq)}
+          esti.weight.f = Z.f/sqrt(Z.f^2+Z.r^2)
+          esti.weight.r = Z.r/sqrt(Z.f^2+Z.r^2)
+          Q.Adapt = sqrt(Z.f^2+Z.r^2) # [1,] is added to avoid operation problems. It guarantees it's a value.
+          integrand = function(y){
+            pchisq(sqrt(Q.Adapt^2-y^2),df=2,lower.tail=FALSE)*dchisq(y,df=2)
+          }
+          pvalue.IEHC_adapt = pchisq(Q.Adapt,df=2,lower.tail=FALSE)+integrate(integrand,lower=0,upper=Q.Adapt)$value
+          pvalue["pvalue.IEHC_adapt"] = pvalue.IEHC_adapt
+   }
 
-      if(combinations_return & (("All" %in% combination_preference) | ("Fisher" %in% combination_preference))){
-        # Fisher's combination
-        Q.Fisher = -2*log(pvalue.Burden)-2*log(pvalue.chisq)
-        pvalue.IEHC_Fisher = pchisq(as.numeric(Q.Fisher),df=4,lower.tail=FALSE)
-        pvalue["pvalue.IEHC_Fisher"] = pvalue.IEHC_Fisher
-        #stat["stat.fMiST"] = Q.Fisher
-      }
-      if(combinations_return & (("All" %in% combination_preference) | ("Burden" %in% combination_preference))){
-        pvalue["pvalue.Burden"] = pvalue.Burden
-      }
-       if(combinations_return & (("All" %in% combination_preference) | ("KM" %in% combination_preference))){
-        pvalue["pvalue.KM"] = pvalue.KM
-      }   
-       if(combinations_return & (("All" %in% combination_preference) | ("ACAT" %in% combination_preference))){
-        Q.Fisher = -2*log(pvalue.Burden)-2*log(pvalue.chisq)
-        pvalue.IEHC_Fisher = pchisq(as.numeric(Q.Fisher),df=4,lower.tail=FALSE)
-	
-	 Z.f = -2*log(pvalue.Burden)
-        if(is.null(log(pvalue.chisq))) {Z.r = -2*log(1e-16)}
-        else {Z.r = -2*log(pvalue.chisq)}
-        esti.weight.f = Z.f/sqrt(Z.f^2+Z.r^2)
-        esti.weight.r = Z.r/sqrt(Z.f^2+Z.r^2)
-        Q.Adapt = sqrt(Z.f^2+Z.r^2) # [1,] is added to avoid operation problems. It guarantees it's a value.
-        integrand = function(y){
-          pchisq(sqrt(Q.Adapt^2-y^2),df=2,lower.tail=FALSE)*dchisq(y,df=2)
-        }
-        pvalue.IEHC_adapt = pchisq(Q.Adapt,df=2,lower.tail=FALSE)+integrate(integrand,lower=0,upper=Q.Adapt)$value
+   if(combinations_return & (("All" %in% combination_preference) | ("Fisher" %in% combination_preference))){
+   # Fisher's combination
+          Q.Fisher = -2*log(pvalue.Burden)-2*log(pvalue.chisq)
+          pvalue.IEHC_Fisher = pchisq(as.numeric(Q.Fisher),df=4,lower.tail=FALSE)
+          pvalue["pvalue.IEHC_Fisher"] = pvalue.IEHC_Fisher
+   }
+   if(combinations_return & (("All" %in% combination_preference) | ("Burden" %in% combination_preference))){
+          pvalue["pvalue.Burden"] = pvalue.Burden
+   }
+   if(combinations_return & (("All" %in% combination_preference) | ("KM" %in% combination_preference))){
+          pvalue["pvalue.KM"] = pvalue.KM
+   }   
+   if(combinations_return & (("All" %in% combination_preference) | ("ACAT" %in% combination_preference))){
+          Q.Fisher = -2*log(pvalue.Burden)-2*log(pvalue.chisq)
+          pvalue.IEHC_Fisher = pchisq(as.numeric(Q.Fisher),df=4,lower.tail=FALSE)
+	  Z.f = -2*log(pvalue.Burden)
+          if(is.null(log(pvalue.chisq))) {Z.r = -2*log(1e-16)}
+          else {Z.r = -2*log(pvalue.chisq)}
+          esti.weight.f = Z.f/sqrt(Z.f^2+Z.r^2)
+          esti.weight.r = Z.r/sqrt(Z.f^2+Z.r^2)
+          Q.Adapt = sqrt(Z.f^2+Z.r^2) # [1,] is added to avoid operation problems. It guarantees it's a value.
+          integrand = function(y){
+            pchisq(sqrt(Q.Adapt^2-y^2),df=2,lower.tail=FALSE)*dchisq(y,df=2)
+          }
+          pvalue.IEHC_adapt = pchisq(Q.Adapt,df=2,lower.tail=FALSE)+integrate(integrand,lower=0,upper=Q.Adapt)$value
         
 	
-p_rho = function(rho,df_f,lambda_r,u_f,u_r,acc=5e-10){
+          p_rho = function(rho,df_f,lambda_r,u_f,u_r,acc=5e-10){
           pvalue = CompQuadForm::davies(q=rho*u_f+(1-rho)*u_r,
                           lambda=c(rho*rep(1,df_f),(1-rho)*lambda_r),acc=acc,lim=1/acc)$Qq
-          # Note on 2017/2/6: previous version doesn't include acc and lim input here and it causes the returned pvalue >1 in some simulation runs. Caused error in the following calculation of quantiles based on returned pvalues. acc and lim are added to control this.
+          # Note: Previous version doesn't include acc and lim input here and it causes the returned pvalue >1 in some simulation runs. Caused error in the following calculation of quantiles based on returned pvalues. acc and lim are added to control this.
           if(pvalue<=acc) pvalue = pvalue.liu(Q=rho*u_f+(1-rho)*u_r,weight=c(rho*rep(1,df_f),(1-rho)*lambda_r),method=chisq_app)$pvalue
           return(pvalue)
-        }
+          }
         rho_min_pvalue_inside01 = optimize(p_rho,interval=c(0,1),maximum=FALSE,df_f=1,lambda_r=EigenvalueD.r,u_f=Q.f,u_r=Q.r,acc=acc)$minimum
         min_pvalue_inside01 = optimize(p_rho,interval=c(0,1),maximum=FALSE,df_f=1,lambda_r=EigenvalueD.r,u_f=Q.f,u_r=Q.r,acc=acc)$objective
         ### Note: optimize function does NOT include the comparison at the endpoints of the interval. Add comparison with p_values at 0 and 1 manually below
@@ -1100,16 +1089,14 @@ p_rho = function(rho,df_f,lambda_r,u_f,u_r,acc=5e-10){
           min_pvalue = min_pvalue_inside01
         }
 
-        Q.Optim = Q.f*rho_min_pvalue + Q.r*(1-rho_min_pvalue)
-
-  
-          acc_supp = max(min(min_pvalue,0.01)*0.1,acc)
-          lim_supp = as.integer(1/acc_supp)
+    Q.Optim = Q.f*rho_min_pvalue + Q.r*(1-rho_min_pvalue)
+    acc_supp = max(min(min_pvalue,0.01)*0.1,acc)
+    lim_supp = as.integer(1/acc_supp)
  
 
         if(-log10(min_pvalue)>accurate_app_threshold){
-          quan_grid = quan_rho_calculator(grid=seq(0,1,by=0.05),df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc_supp,lim=lim_supp,max_core=max_core)
-          pvalue.IEHC_optim = pvalue_minimizePValue_davies(u_f=Q.f,u_r=Q.r,df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc,ChisqApp=chisq_app,max_core=max_core)
+           quan_grid = quan_rho_calculator(grid=seq(0,1,by=0.05),df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc_supp,lim=lim_supp,max_core=max_core)
+           pvalue.IEHC_optim = pvalue_minimizePValue_davies(u_f=Q.f,u_r=Q.r,df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc,ChisqApp=chisq_app,max_core=max_core)
         }
         else pvalue.IEHC_optim = pvalue_minimizePValue_liu(u_f=Q.f,u_r=Q.r,df_f=1,lambda_r=EigenvalueD.r,min_pvalue=min_pvalue,acc=acc,ChisqApp=chisq_app)
         
@@ -1121,13 +1108,8 @@ p_rho = function(rho,df_f,lambda_r,u_f,u_r,acc=5e-10){
 	index = which(pxx<1e-30)
 	if (length(index) > 0) pxx[index] = 1e-30
 	pvalue.ACAT = ACAT(pxx)
-	
-
 	pvalue["pvalue.ACAT"] = pvalue.ACAT
-      }   
-
- 
-
+     }   
   return(list(pvalue=pvalue))
 }
 
