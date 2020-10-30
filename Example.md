@@ -23,7 +23,7 @@ IEHC = function (
 # The p values of Burden, KM, IEHC-Fisher, IEHC-adapt, IEHC-optim and ACAT
 ```ruby
 
-source("IEHC.R")
+source("IEHC_function.R")
 
 y <- read.table("data.txt",head=T)
 
