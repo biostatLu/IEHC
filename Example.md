@@ -15,7 +15,7 @@ IEHC = function (
   
   acc = 5e-10,
   
-  accurate_app_threshold = -log10(0.05),
+  accurate_app_threshold = -log10(0.05), # if the min_pvalue<0.05, the accurate approximation on min_quantile in optim combination is used instead of approximation with Liu's method.
   
   max_core = 4
 ){
