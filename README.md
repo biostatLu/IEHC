@@ -1,4 +1,4 @@
-# IEHC: integrative eQTL hierarchical Cox model for SNP set association based on mixed models
+# IEHC: integrative eQTL hierarchical Cox models for SNP-set based time-to-event association studies
 # Introduction
 Integrative eQTL hierarchical Cox (IEHC) is a R procedure for examining the association of a set of genetic variants based on genes under the framework of mixed models. Very similar to the popular MiST method which conducts the burden and the variance components test to binary or continuous outcome. IEHC uses Integrative eQTL hierarchical Cox model to test for the association by testing both the burden and the variance components according to the survival risk outcome. 
 
@@ -32,7 +32,7 @@ Jianping Sun, Yingye Zheng, Li Hsu. A unified mixed-effects model for rare-varia
 Yu-Ru Su, Chongzhi Di, Stephanie Bien, Licai Huang, Xinyuan Dong, Goncalo Abecasis, Sonja Berndt, Stephane Bezieau, Hermann Brenner, Bette Caan, Graham Casey, Jenny Chang-Claude, Stephen Chanock, Sai Chen, Charles Connolly, Keith Curtis, Jane Figueiredo, Manish Gala, Steven Gallinger, Tabitha Harrison, Michael Hoffmeister, John Hopper, Jeroen R. Huyghe, Mark Jenkins, Amit Joshi, Loic Le Marchand, Polly Newcomb, Deborah Nickerson, John Potter, Robert Schoen, Martha Slattery, Emily White, Brent Zanke, Ulrike Peters and Li Hsu. A Mixed-Effects Model for Powerful Association Tests in Integrative Functional Genomics. The American Journal of Human Genetics, 2018, 102(5), 904-919. [DOI: 10.1016/j.ajhg.2018.03.019](https://www.sciencedirect.com/science/article/pii/S0002929718301083)
 
 # Cite
-Haojie Lu<sup>$</sup>, Yongyue Wei<sup>$</sup>, Zhou Jiang, Jinhui Zhang, Ting Wang, Shuiping Huang<sup>#</sup> and Ping Zeng<sup>#</sup> (2020). Integrative eQTL-weighted hierarchical Cox models for SNP-set based survival association study.
+Haojie Lu<sup>$</sup>, Yongyue Wei<sup>$</sup>, Zhou Jiang, Jinhui Zhang, Ting Wang, Shuiping Huang and Ping Zeng<sup>#</sup> (2021). Integrative eQTL-weighted hierarchical Cox models for SNP-set based time-to-event association studies. Journal of Translational Medicine, in press.
 
 # Contact
 We are very grateful to any questions, comments, or bugs reports; and please contact [Ping Zeng](https://github.com/biostatpzeng) via zpstat@xzhmu.edu.cn.
